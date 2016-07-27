@@ -33,11 +33,11 @@ import com.fox.services.db.core.CoreConnectionFactory;
 import com.fox.services.rest.db.payload.FOXDBHubServiceRequest;
 
 
-@Path("/service")
+@Path("/")
 public class FetchDetails {
 
 	@GET
-	@Path("/FetchData")
+	//@Path("/FetchData")
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response processSelect(@Context UriInfo info)
