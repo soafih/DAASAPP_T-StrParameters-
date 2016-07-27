@@ -48,8 +48,6 @@ public class FetchDetails {
 		Statement stmt;
 		try {
 			String query = formQuery(info);
-			Properties props = new Properties();
-			props.load(getClass().getClassLoader().getResourceAsStream("DAASApp.properties"));
 			//validateReq(foxRequest);
 			Connection conn = CoreConnectionFactory
 					.createConnectionWithDS("jdbc/testdb1");
@@ -71,7 +69,7 @@ public class FetchDetails {
 		return Response.status(statusCode).entity(result).build();
 	}
 	
-	private String formQuery(UriInfo info) throws IOException
+	private String formQuery(UriInfo info) throws Exception
 	{
 		Properties props = new Properties();
 		props.load(getClass().getClassLoader().getResourceAsStream("DAASApp.properties"));
@@ -83,6 +81,11 @@ public class FetchDetails {
 		  while (m.find()) {
 			    String text = m.group(0);
 			     text=text.substring(1, text.length()-1);
+			     
+			     if(info.getQueryParameters().getFirst(text) == null)
+			     {
+			    	 throw new Exception("Parameter : "+text+" is not passed");
+			     }
 			       // ... possibly process 'text' ...
 			    m.appendReplacement(sb, info.getQueryParameters().getFirst(text));
 		  }
@@ -102,9 +105,10 @@ public class FetchDetails {
 	private JSONObject getErrorJson(Exception ex) throws JSONException{
 		JSONObject result=new JSONObject();
 		JSONObject childObject=new JSONObject();
-		result.put("Error",childObject );
+		
 		childObject.put("ErrorDetails", ex.getMessage());
 		childObject.put("Status", "Error");
+		result.put("Error",childObject );
 		return result;
 	}
 	private JSONObject processResultsAsJson(ResultSet rs)
@@ -121,7 +125,7 @@ public class FetchDetails {
 			while (rs.next()) {
 				JSONObject rowDataJsonObj=new JSONObject();
 				for (int columnIndex = 1; columnIndex <= totalColumns; columnIndex++) {
-					rowDataJsonObj.put(rs.getMetaData().getColumnName(columnIndex), rs.getString(columnIndex));
+					rowDataJsonObj.put(rs.getMetaData().getColumnName(columnIndex), rs.getString(columnIndex).trim());
 				}
 				resultRows.put(rowDataJsonObj);
 			}
