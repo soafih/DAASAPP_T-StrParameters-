@@ -1,0 +1,8 @@
+<Context path="/database" docBase="conn"
+   crossContext="true" reloadable="true" debug="1">
+  <Resource name="jdbc/testdb1" auth="Container" type="javax.sql.DataSource"
+               maxActive="${maxActive}" maxIdle="${maxIdle}" maxWait="${maxWait}"               
+               username="${user}" password="${password}" 
+               driverClassName="${driverClassName}"
+               url="${ConnectionString}"/>
+</Context>

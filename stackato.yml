@@ -1,0 +1,6 @@
+applications:
+ - disk_quota: 2048
+   memory: 512
+   name: DAASAPP
+   host : daasapp
+   path: target/DAASAppTemplate-1.0.war
