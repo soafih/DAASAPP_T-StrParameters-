@@ -2,7 +2,7 @@
    crossContext="true" reloadable="true" debug="1">
   <Resource name="jdbc/testdb1" auth="Container" type="javax.sql.DataSource"
                maxActive="${maxActive}" maxIdle="${maxIdle}" maxWait="${maxWait}"               
-               username="${user}" password="${password}" 
+               username="${dbuser}" password="${password}" 
                driverClassName="${driverClassName}"
                url="${ConnectionString}"/>
 </Context>
