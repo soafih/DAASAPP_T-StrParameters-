@@ -126,7 +126,8 @@ public class FetchDetails {
 			while (rs.next()) {
 				JSONObject rowDataJsonObj=new JSONObject();
 				for (int columnIndex = 1; columnIndex <= totalColumns; columnIndex++) {
-					rowDataJsonObj.put(rs.getMetaData().getColumnName(columnIndex), rs.getString(columnIndex).trim());
+					//rowDataJsonObj.put(rs.getMetaData().getColumnName(columnIndex), rs.getString(columnIndex).trim());
+					rowDataJsonObj.put(rs.getMetaData().getColumnName(columnIndex), rs.getString(columnIndex));
 				}
 				resultRows.put(rowDataJsonObj);
 			}
