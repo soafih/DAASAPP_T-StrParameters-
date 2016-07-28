@@ -61,6 +61,7 @@ public class FetchDetails {
 			result=resultJson.toString();
 			
 		} catch (Exception ex){
+			ex.printStackTrace();
 			JSONObject resultJson=getErrorJson(ex);
 			result=resultJson.toString();
 			statusCode=501;
